@@ -22,7 +22,7 @@ class ApiController extends Controller
               "message" => "employee not found"
             ], 404);
           }
-    }   
+    }
 
     public function create_emp(Request $request) {
         $employee = new Employee;
@@ -46,7 +46,7 @@ class ApiController extends Controller
             $employee->bday = is_null($request->bday) ? $employee->bday : $request->bday;
             $employee->position = is_null($request->position) ? $employee->position : $request->position;
             $employee->save();
-    
+
             return response()->json([
                 "message" => "records updated successfully"
             ], 200);
@@ -54,7 +54,7 @@ class ApiController extends Controller
             return response()->json([
                 "message" => "employee not found"
             ], 404);
-            
+
         }
     }
 
@@ -62,7 +62,7 @@ class ApiController extends Controller
         if(Employee::where('id', $id)->exists()) {
             $employee = Employee::find($id);
             $employee->delete();
-    
+
             return response()->json([
               "message" => "records deleted"
             ], 202);
