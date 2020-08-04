@@ -1,78 +1,104 @@
-<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_modal_label">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+<div id="addModal" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header">
+
+          <h4 class="modal-title">Add New Employee</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+         <span id="form_result"></span>
+         <form method="post" id="employee_form" class="form-horizontal">
+        <div class="form-group">
+            <label for="fname" class="control-label">First Name:</label>
+            <input type="text" class="form-control" id="fname" name="fname" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="lname" class="control-label">Last Name:</label>
+            <input type="text" class="form-control" id="lname" name="lname" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="age" class="control-label">Age:</label>
+            <input type="number" class="form-control" id="age" name="age" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="bday" class="control-label">Date of Birth:</label>
+            <input type="date" class="form-control" id="bday" name="bday" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="position" class="control-label">Position:</label>
+            <input type="text" class="form-control" id="position" name="position" autocomplete="off">
+        </div>
+        <br />
+                <div class="form-group" align="center">
+                 <input type="hidden" name="action" id="action" value="Add" />
+                 <input type="hidden" name="hidden_id" id="hidden_id" />
+                 <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Add" />
+                </div>
+         </form>
+        </div>
+     </div>
+     </div>
+    </div>
+
+
+    <div id="editModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+
+        <h4 class="modal-title">Edit Employee</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                <span id="form_result"></span>
+                <form method="post" id="employee_form" class="form-horizontal">
+                <div class="form-group">
+                    <label for="fname" class="control-label">First Name:</label>
+                    <input type="text" class="form-control" id="fname" name="fname" value="{{$key['id']}}">
+                </div>
+                <div class="form-group">
+                    <label for="lname" class="control-label">Last Name:</label>
+                    <input type="text" class="form-control" id="lname" name="lname" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="age" class="control-label">Age:</label>
+                    <input type="number" class="form-control" id="age" name="age" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="bday" class="control-label">Date of Birth:</label>
+                    <input type="date" class="form-control" id="bday" name="bday" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="position" class="control-label">Position:</label>
+                    <input type="text" class="form-control" id="position" name="position" autocomplete="off">
+                </div>
+                <br />
+                        <div class="form-group" align="center">
+                        <input type="hidden" name="action" id="action" value="Edit" />
+                        <input type="hidden" name="hidden_id" id="hidden_id" />
+                        <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="Edit" />
+                        </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="add_modal_label">New User</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Confirmation</h2>
             </div>
             <div class="modal-body">
-              <form id="employee_form">
-                <div class="form-group">
-                  <label for="emp-fname" class="control-label">First Name:</label>
-                  <input type="text" class="form-control" id="emp-fname" name="fname" >
-                </div>
-                <div class="form-group">
-                  <label for="emp-lname" class="control-label">Last Name:</label>
-                  <input type="text" class="form-control" id="emp-lname" name="fname" >
-                </div>
-                <div class="form-group">
-                  <label for="user-fullname" class="control-label">Age:</label>
-                  <input type="number" class="form-control" id="emp-age" name="age" >
-                </div>
-                <div class="form-group">
-                  <label for="emp-bday" class="control-label">Date of Birth:</label>
-                  <input type="date" class="form-control" id="emp-bday" name="bday" >
-                </div>
-                <div class="form-group">
-                  <label for="emp-position" class="control-label">Position:</label>
-                  <input type="text" class="form-control" id="emp-position" name="position" >
-                </div>
-
-              </form>
+                <h4 align="center" style="margin:0;">Are you sure you want to remove this data?</h4>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary btn-add" onClick="dataList.addData($('#employee_form').serializeArray())">Add User</button>
+             <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
-          </div>
         </div>
-      </div>
-
-      <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal_label">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title" id="edit_modal_label">Edit User</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-              <form id="employee_form">
-                <div class="form-group">
-                  <label for="user-name" class="control-label">Username:</label>
-                  <input type="text" class="form-control" id="user-name" name="username" autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="user-pass" class="control-label">Password:</label>
-                  <input type="password" class="form-control" id="user-pass" name="password" autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="user-fullname" class="control-label">Fullrname:</label>
-                  <input type="text" class="form-control" id="user-fullname" name="fullname" autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="user-type" class="control-label">Type:</label>
-                  <select class="form-control"  id="user-type" name="usertype">
-                    <option value="1">Type 1</option>
-                    <option value="2">Type 2</option>
-                  </select>
-                  <input type="hidden" id="user-id" name="userid" value="">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-warning hidden btn-edit" onClick="dataList.editData($('#employee_form').serializeArray())" >Edit User</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+</div>
