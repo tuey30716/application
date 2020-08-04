@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Employee;
 use DataTables;
+use Dotenv\Result\Success;
 
 class ApiController extends Controller
 {
@@ -51,9 +52,11 @@ class ApiController extends Controller
         $employee->bday = date("Y-m-d", strtotime($request->bday));;
         $employee->position = $request->position;
         $employee->save();
-
-        return response()->json([
-            "message" => "emp record created"], 201);
+        $json_data[]=array(
+            "success" => 'Create Success',
+            "error" => 'Error'
+        );
+        return response($json_data);
     }
 
     public function update_emp(Request $request, $id) {
