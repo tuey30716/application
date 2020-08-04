@@ -4,19 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
-use View;
-use Response;
+use DataTables;
 
 class ApiController extends Controller
 {
-    public function get_all_emp() {
+    public function get_all_emp(Request $request) {
         $employee = Employee::get()->toJson(JSON_PRETTY_PRINT);
+        if(!is_null($request)){
+
+            if ($request->ajax()) {
+                $employee = Employee::latest()->get();
+                return Datatables::of($employee)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($row){
+
+                            $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                                return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+            }
+
         return view("home", compact("employee"));
       }
+    }
+
+
+
     public function get_emp_by_id($id) {
         if (Employee::where('id', $id)->exists()) {
             $employee = Employee::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
-            return response($employee, 200);
+            return view("home", compact("employee"));
           } else {
             return response()->json([
               "message" => "employee not found"
@@ -29,7 +48,7 @@ class ApiController extends Controller
         $employee->fname = $request->fname;
         $employee->lname = $request->lname;
         $employee->age = $request->age;
-        $employee->bday = $request->bday;
+        $employee->bday = date("Y-m-d", strtotime($request->bday));;
         $employee->position = $request->position;
         $employee->save();
 
